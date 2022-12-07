@@ -503,171 +503,327 @@ class TextExample(Scene):
 
   #         ###################### GNN
   #         self.remove(section)
-          section = Text("3 . Graph Neural Network", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
-          self.add(section)
+          # section = Text("3 . Graph Neural Network", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
+          # self.add(section)
 
-          nodes = []
-          edges = []
-          labels = []
-          def node(x, y, z):
-            c = Circle()
-            c.set_fill(BLUE, opacity=1)
-            c.set_stroke(WHITE, width=1)
-            c.set_width(0.1)
-            c.move_to([x, y, 0])
-            nodes.append(c)
+          # nodes = []
+          # edges = []
+          # labels = []
+          # def node(x, y, z):
+          #   c = Circle()
+          #   c.set_fill(BLUE, opacity=1)
+          #   c.set_stroke(WHITE, width=1)
+          #   c.set_width(0.1)
+          #   c.move_to([x, y, 0])
+          #   nodes.append(c)
 
-            label = Text(str(z), font_size=20, font=the_font)
-            label.move_to(c).shift(UP * 0.2)
-            labels.append(label)
+          #   label = Text(str(z), font_size=30, font=the_font)
+          #   if (z != "Frontend"):
+          #     label.move_to(c).shift(DOWN * 0.2)
+          #   else:
+          #     label.move_to(c).shift(UP * 0.2)
+          #   labels.append(label)
 
           
-          def edge(a, b):
-            l = Line(a, b, stroke_width=1)
-            edges.append(l)
+          # def edge(a, b):
+          #   l = Line(a, b, stroke_width=1)
+          #   edges.append(l)
 
-          node(0, 0, 0)
-          node(-3, -1, 1)
-          node(-3, -2, 2)
-          node(-2, -3, 3)
-          node(2, -3, 4)
-          node(3, -1.5, 5)
+          # node(0, 0, "Frontend")
+          # node(-3, -1, "Cart")
+          # node(-3, -2, "Recommendation")
+          # node(-2, -3, "Product")
+          # node(2, -3, "Shipping")
+          # node(3, -1.5, "Currency")
 
-          edge(nodes[0], nodes[1])
-          edge(nodes[0], nodes[2])
-          edge(nodes[0], nodes[3])
-          edge(nodes[0], nodes[4])
-          edge(nodes[0], nodes[5])
-          edge(nodes[2], nodes[3])
+          # edge(nodes[0], nodes[1])
+          # edge(nodes[0], nodes[2])
+          # edge(nodes[0], nodes[3])
+          # edge(nodes[0], nodes[4])
+          # edge(nodes[0], nodes[5])
+          # edge(nodes[2], nodes[3])
 
-          graph = VGroup(*edges, *nodes, *labels)
-          graph.scale(0.7).move_to([-2, 0, 0])
-          self.add(graph)
+          # graph = VGroup(VGroup(*edges, *nodes, *labels), Text("Online Boutique", font=the_font, t2s={"Online Boutique": ITALIC}))
+          # graph.arrange(DOWN, buff=0.4)
+          # graph.scale(0.7).move_to([-2, 0, 0])
+          # self.add(graph)
 
-          # node_feature = Tex(r"\text{Node Feature}=\begin{bmatrix} -1 & \quad 1 \\ 1 & -1 \end{bmatrix}")
-          # edge_feature = Tex(r"\text{Edge Feature}=\begin{bmatrix} -1 & \quad 1 \\ 1 & -1 \end{bmatrix}")
-          node_matrix = Matrix([["1"], ["2"], ["1"], ["4"], ["3"]])
-          node_matrix.get_brackets().set_color(GREEN, PURPLE)
-          node_feature = VGroup(Tex(r"\text{Node Feature}="), node_matrix).arrange(RIGHT)
-          edge_matrix = Matrix([["145"], ["298"], ["153"], ["621"], ["465"], ["412"]])
-          edge_matrix.get_brackets().set_color(BLUE)
-          edge_feature = VGroup(Tex(r"\text{Edge Feature}="), edge_matrix).arrange(RIGHT)
+          # node_matrix = Matrix([["1"], ["2"], ["1"], ["4"], ["3"]])
+          # node_matrix.get_brackets().set_color(GREEN, PURPLE)
+          # node_feature = VGroup(Text("Input Node Features:", font=the_font), node_matrix).arrange(RIGHT)
+          # edge_matrix = Matrix([["145"], ["298"], ["153"], ["621"], ["465"], ["412"]])
+          # edge_matrix.get_brackets().set_color(BLUE)
+          # edge_feature = VGroup(Text("Input Edge Features:", font=the_font), edge_matrix).arrange(RIGHT)
 
-          # test.rotate(90 * DEGREES)
-          features = VGroup(node_feature, edge_feature).arrange(DOWN)
-          features.next_to(graph).scale(0.6)
-          # self.add(features)
-          self.play(ShowCreation(node_feature))
+          # features = VGroup(node_feature, edge_feature).arrange(DOWN)
+          # features.next_to(graph).scale(0.5)
+          # self.play(FadeIn(node_feature))
 
-          self.play(ShowCreation(edge_feature))
+          # self.play(FadeIn(edge_feature))
 
-          node_matrix2 = Matrix(["1", "2", "1", "4", "3"])
-          node_matrix2.get_brackets().set_color(GREEN)
-          temp_node = VGroup(Tex(r"\text{Node Feature}="), node_matrix2).arrange(RIGHT)
-          edge_matrix2 = Matrix(["145", "298", "153", "621", "465", "412"])
-          edge_matrix2.get_brackets().set_color(BLUE)
-          temp_edge = VGroup(Tex(r"\text{Edge Feature}="), edge_matrix2).arrange(RIGHT)
-          a = VGroup(temp_node, temp_edge).arrange(DOWN).scale(0.4)
-          a.shift(LEFT*3 + DOWN * 2)
+          # all_cs = []
+          # all_lines = []
+          # def layer(x, color=BLUE):
+          #   circles = VGroup()
+          #   for i in range(x):
+          #     c = Circle()
+          #     c.set_fill(color, opacity=1)
+          #     c.set_stroke(WHITE, width=1)
+          #     c.set_width(0.2)
+          #     circles.add(c)
+          #   circles.arrange(DOWN, buff=0.15)
+          #   all_cs.append(circles)
+          #   return circles
 
-          graph.generate_target()
-          graph.target.scale(0.9)
-          graph.target.shift(LEFT)
+          # def cross(a, b):
+          #   temp = VGroup()
+          #   for i in a:
+          #     for j in b:
+          #       l = Line(i, j, stroke_color=WHITE, opacity=0.5, stroke_width = 0.1)
+          #       temp.add(l)
+          #       all_lines.append(l)
+          #   return temp
+
+          # a = layer(5, GREEN)
+          # b = layer(5, GREEN)
+          # b.next_to(a, buff=1.6)
+          # f = layer(5, GREEN)
+          # f.next_to(b, buff=1.6)
+
+          # c = layer(6)
+          # d = layer(6)
+          # e = layer(6)
+          # d.next_to(c, buff=1)
+          # e.next_to(d, buff=1)
+          # g = layer(5, PURPLE)
+          # g.next_to(e, buff = 1)
+
+          # add_lines = VGroup()
+          # f1 = layer(5, ORANGE)
+          # f2 = layer(1, ORANGE)
+          # final = VGroup(f1, f2)
+          # final.arrange(RIGHT).shift(RIGHT * 2.5)
+
+          # node_label = Text("Node pooling", font=the_font, font_size=20)
+          # greens = VGroup(node_label, VGroup(a, b, f, cross(a, b), cross(b, f)))
+          # greens.arrange(DOWN)
+          # node_label.shift(RIGHT * 1.6)
+
+          # edge_label = Text("Edge pooling", font=the_font, font_size=20)
+          # blues = VGroup(edge_label, VGroup(c, d, e, g, cross(c, d), cross(d, e), cross(e, g)))
+          # blues.arrange(DOWN)
+          # edge_label.shift(RIGHT*1)
         
-          self.play(MoveToTarget(graph), FadeOut(features), FadeIn(a))
-          # while True:
-          #   self.wait(10)
+          # gnn1 = VGroup(greens, blues)
+          # gnn1.arrange(DOWN, buff=0.5, aligned_edge=LEFT)
+
+          # count = 0
+          # for i in (g):
+          #   temp = Line(i, f1[count], stroke_color=WHITE, opacity=0.5, stroke_width = 0.1)
+          #   add_lines.add(temp)
+          #   all_lines.append(temp)
+          #   count += 1
+          
+          # count = 0
+          # for i in (f):
+          #   temp = Line(i, f1[count], stroke_color=WHITE, opacity=0.5, stroke_width = 0.1)
+          #   add_lines.add(temp)
+          #   all_lines.append(temp)
+          #   count += 1
+
+          # big_gnn = VGroup(*all_cs, *all_lines)
+          # big_gnn.shift(RIGHT * 1.5)
+
+
+          # #######################
+          # #######################
+          # graph.generate_target()
+          # graph.target.scale(0.6)
+          # graph.target.shift(LEFT * 2)
+
+          # for i, j in [(node_matrix, a), (edge_matrix, c)]:
+          #   i.generate_target()
+          #   i.target.scale(0.83)
+          #   i.target.next_to(j, aligned_edge=RIGHT).shift(LEFT * 1)
+
+          # self.remove(features)
+          # self.play(MoveToTarget(graph), MoveToTarget(node_matrix), MoveToTarget(edge_matrix))
+
+          # projection = Text("Projection", font=the_font, font_size=20)
+          # addtext = Text("Add", font=the_font, font_size=20)
+          # addtext.move_to(add_lines).rotate(-62 * DEGREES)
+          # addtext.shift(UP * 1.5 + RIGHT * 0.2)
+          # projection.move_to(g).rotate(-8 * DEGREES)
+          # projection.shift(LEFT * 0.6 + UP * 1)
+          # latency = Text("Latency", font=the_font, font_size=20)
+          # latency.move_to(f2).shift(0.5* RIGHT)
+          # self.play(ShowCreation(greens), ShowCreation(blues), FadeIn(projection))
+
+          # self.play(ShowCreation(final), ShowCreation(cross(f1, f2)), ShowCreation(add_lines), FadeIn(addtext), FadeIn(latency))
+
+          # final = VGroup(f1, f2, cross(f1, f2))
+          
+          ###################### GNN
+          self.remove(section)
+          section = Text("5. Results", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
+          self.add(section)
+
+
+          # magic_number = 0.8
+          
+          axes = NumberPlane(
+              x_range=[0, 18, 1],
+              y_range=[0, 6, 1],
+              height = 3,
+              width = 4.9,
+              tips=False,
+              faded_line_ratio = 4,
+              # color= "#f5f5f5",
+              color="#000000",
+              axis_config={"include_numbers": False},
+              # x_axis_config = {"include_ticks": True},
+              background_line_style={
+                  "stroke_color": BLACK,
+                  "stroke_width": 2,
+                  "stroke_opacity": 0.6
+              },
+              faded_line_style={
+                "stroke_color": BLACK,
+              }
+              # y_axis_config={"scaling": LogBase(custom_labels=True)},
+            ).rotate(-90 * DEGREES, about_edge=IN).shift(LEFT*4)
+
+          client = axes.get_graph(
+            lambda x: 0.8,
+            color="#B2BEB5",
+            stroke_width=0.2,
+            opacity=0.5,
+          )
+          # client = DashedVMobject(client)
+          m1 = axes.get_graph(
+            lambda x: 1.6,
+            color="#B2BEB5",
+            stroke_width = 0.2,
+          )
+          m2 = axes.get_graph(
+            lambda x: 2.4,
+            color="#B2BEB5",
+            stroke_width = 0.2,
+          )
+
+
+          def traffic(thread, start, end, dimish_list, color = "#029ffa", width = 0.07, icon = True):
+            box = Rectangle(height= 0.001, width=width, color=WHITE, stroke_width=0).move_to(axes.coords_to_point(start, thread), aligned_edge=UP)
+            box.set_fill(color, opacity=1)
+            height = axes.coords_to_point(start)[1] - axes.coords_to_point(end)[1]
+
+            self.add(box)
+            self.play(*dimish_list, box.animate.set_height(height, about_edge=UP, stretch=True), run_time=0.5)
+            bl = SVGMobject("document.svg").scale(0.2).move_to(axes.coords_to_point((start + end) / 2, thread)).shift(RIGHT*0.25)
+            # self.play(ShowCreation(traffic1))
+            if icon:
+              self.play(FadeIn(bl))
+            
+            if thread == 0.8:
+              bar_list1.append(box)
+            elif thread == 1.6:
+              bar_list2.append(box)
+              icon_list1.append(bl)
+            else:
+              bar_list3.append(box)
+              icon_list2.append(bl)
+            return box
+
+          # self.play(ShowCreation(step_graph))
+          # axes.add_coordinate_labels(
+          #     font_size=20,
+          #     font = the_font,
+          #     num_decimal_places=1,
+          # )
+
+
+          def add_text(content, thread, a = 0):
+            client_t = Text(content, font=the_font, font_size=10).move_to(axes.coords_to_point(0, thread), aligned_edge=DOWN).shift(UP*0.13).rotate(20*DEGREES)
+            self.add(client_t)
+            return client_t
+
+          label1 = add_text("Frontend", 0.8)
+          label2 = add_text("Cart", 1.6, 0.5)
+          label3 = add_text("Recommendation", 2.4)
+          label4 = add_text("Product", 3.2, 0.5)
+          label5 = add_text("Shipping", 4)
+          label6 = add_text("Currency", 4.8, 0.5)
+
+
+          self.play(FadeIn(axes))
+          self.play(ShowCreation(m1), ShowCreation(m2), ShowCreation(client))
+          def diminish(bar_list, icon_list):
+            animation_list = []
+            for box in bar_list:
+              box.generate_target()
+              box.target.set_width(0.02, about_edge=UP, stretch=True)
+              box.target.set_opacity(0.5)
+              animation_list.append(MoveToTarget(box))
+            for bl in icon_list:
+              bl.generate_target()
+              bl.target.set_opacity(0.5)
+              bl.target.scale(0.8)
+              animation_list.append(MoveToTarget(bl))
+            return animation_list
+
+          def survive(bar_list, icon_list):
+            animation_list = []
+            for box in bar_list:
+              box.generate_target()
+              box.target.set_width(0.07, about_edge=UP, stretch=True)
+              box.target.set_opacity(1)
+              animation_list.append(MoveToTarget(box))
+            for bl in icon_list:
+              bl.generate_target()
+              bl.target.set_opacity(1)
+              bl.target.scale(1.25)
+              animation_list.append(MoveToTarget(bl))
+            return animation_list
+
+          def connect(start, end):
+            dashed = DashedLine(start, end, color="#FFFFFF", stroke_width=0.5)
+            dahsed_list.append(dashed)
+            return [ShowCreation(dashed)]
+
+          ########Traffic arrives
+          bar_list1 = []
+          bar_list2 = []
+          bar_list3 = []
+          icon_list1 = []
+          icon_list2 = []
+          dahsed_list = []
+          traffic(0.8, 0, 3.1, [], "#12cc66", 0.1, False)
+          temp = diminish(bar_list1, [])
+
+
+
+          temp += connect(axes.coords_to_point(3.1, 0.8), axes.coords_to_point(3.1, 1.6))
+          traffic(1.6, 3.1, 5.1, temp)
+          temp = diminish(bar_list2, icon_list1)
+          temp += connect(axes.coords_to_point(5.1, 1.6), axes.coords_to_point(5.1, 2.4))
+          traffic(2.4, 5.1, 9.1, temp)
+          temp = diminish(bar_list3, icon_list2)
+          temp += survive(bar_list2, icon_list1)
+          temp += connect(axes.coords_to_point(9.1, 2.4), axes.coords_to_point(9.1, 1.6))
+          traffic(1.6, 9.1, 13.1, temp)
+        
+          temp = diminish(bar_list2, icon_list1)
+          temp += survive(bar_list1, [])
+          temp += connect(axes.coords_to_point(13.1, 1.6), axes.coords_to_point(13.1, 0.8))
+          traffic(0.8, 13.1, 18, temp, "#12cc66", 0.07, False)
+
+          self.wait(2)
+          self.play(*[FadeOut(i) for i in dahsed_list + icon_list1 + icon_list2 + bar_list1 + bar_list2 + bar_list3])
+
+
+
+          while True:
+            self.wait(10)
           
 TextExample().construct()
 
-
-          # # ######### Autoscaler
-          # self.remove(section)
-          # section = Text("3. Autoscaler", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
-          # self.add(section)
-
-          # t1 = Text("1. Work on individual microservices", font=the_font, font_size=25).move_to([0, 0, 0])
-          # # t1 = BulletedList("Item 1", "Item 2", "Item 3", height=2, width=2)
-          # t2 = Text("2. Duplicate at resource utilization threshold", font=the_font, font_size=25).move_to([0, 0, 0])
-          # t3 = Text("3. Too slow", font=the_font, font_size=25).move_to([0, 0, 0])
-          # allts = VGroup(t1, t2, t3).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
-
-          # def split1(x, y, scale=0.8, index = 1):
-          #   new_square = SVGMobject("cloud.svg", stroke_width = 0, opacity=0.8).scale(0.8 * 1.6 * 1.6).scale(0.3, about_point=[0, -0.1, 0])
-          #   new_image = SVGMobject("cube.svg", stroke_width = 0).move_to([0, -0.1, 0]).scale(0.25)
-          #   t = Text("Service: " + str(index), font=the_font, font_size=17, color="#000000")
-          #   t.move_to(new_square).shift(DOWN * 0.4 + RIGHT * 0.4)
-          #   m = VGroup(new_square, new_image, t).move_to([x, y, 0]).scale(scale)
-          #   return m, new_square, new_image
-
-          # vg1, s1, c1 = split1(-3, 2, 0.55, 1)
-          # vg2, s2, _ = split1(-3.5, 1, 0.55, 2)
-          # vg3, s3, _ = split1(-3.2, 0, 0.55, 3)
-          # vg4, s4, _ = split1(-3, -1, 0.55, 4)
-          # vg5, s5, _ = split1(-1, -1, 0.55, 5)
-          # vg6, s6, _ = split1(-0.3, 1, 0.55, 6)
-
-          # connections = []
-          # def connect_ms(a ,b, color="#FFFFFF", width = 2, opacity=0.5):
-          #   c = Line(a, b, stroke_width=width, color=color).set_stroke(width=width, opacity=opacity)
-          #   self.bring_to_back(c)
-          #   connections.append(c)
-          #   return c
-
-          
-
-          # frontend_background = Rectangle(width = 0.7, height = 0.3, stroke_width = 0)
-          # frontend_background.set_fill("#f7203d", opacity=1)
-          # frontend_text = Text("Frontend", font=the_font, font_size=14, color="#f5f5f5").move_to(frontend_background)
-          # frontend_text.set_color_by_gradient(GREY, WHITE, GREY)
-          # frontend = VGroup(frontend_background, frontend_text)
-          # frontend.shift(LEFT*2.2 + DOWN*(frontend.get_y() - 0))
-          # allms = VGroup(vg1, vg2, vg3, vg4, vg5, vg6)
-          # allms.scale(1.1).shift(LEFT*0.3 + DOWN*(allms.get_y() - 0))
-          # allms += frontend
-          # temp = connect_ms(frontend, vg1)
-          # connect_ms(frontend, vg2)
-          # connect_ms(frontend, vg3.get_center())
-          # connect_ms(frontend, s4.get_center())
-          # connect_ms(frontend, s5.get_center())
-          # connect_ms(frontend, vg6)
-          # connect_ms(vg4, vg3)
-          # for i in connections:
-          #   allms += i
-          # self.play(*[FadeIn(i) for i in allms])
-
-          # c = connect_ms(frontend, vg1, "#12cc66", 3, 1)
-          # # vg1 = vg1.remove(s1)
-          # self.bring_to_back(s1)
-          # self.bring_to_back(c)
-          # self.bring_to_back(temp)
-          # self.play(ShowCreation(c))
-          # self.play(s1.animate.set_color("#f0d23e"))
-
-          # self.play(c1.animate.scale(0.7), run_time = 0.5)
-          # self.bring_to_back(s1)
-          # self.bring_to_back(c)
-          # self.bring_to_back(temp)
-
-          # c2 = c1.copy()
-          # x = prepare_animation(s1.animate.set_color("#ff574d"))
-          # x.set_run_time(0.5)
-          # y = prepare_animation(c1.animate.shift(LEFT * 0.11))
-          # y.set_run_time(1.5)
-          # z = prepare_animation(c2.animate.shift(RIGHT*0.11))
-          # z.set_run_time(1.5)
-
-          # # self.play(c1.animate.shift(LEFT * 0.11), c1.copy().animate.shift(RIGHT*0.11))
-          # self.play(x, y, z)
-          
-          # self.bring_to_back(s1)
-          # self.bring_to_back(c)
-          # self.bring_to_back(temp)
-          # self.play(s1.animate.set_color("#FFFFFF"), c1.animate.shift(RIGHT * 0.11), c2.animate.shift(LEFT * 0.11), Uncreate(c))
-          # self.play(c1.animate.scale(10/7))
-          # self.remove(c2)
-      
-          # self.play(*[FadeOut(i) for i in connections + [allms] + [t1, t2, t3]])
-          # ##############################################
-          # # GNN
-          # self.remove(section)
