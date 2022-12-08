@@ -2,6 +2,8 @@ from tkinter import font
 from turtle import circle
 from manimlib import *
 from manim_fonts import *
+import pickle 
+import numpy as np 
 
 big = 60
 middle = 40
@@ -247,7 +249,6 @@ class TextExample(Scene):
           self.play(microservices[13].animate.scale(2 / 3), run_time=0.5)
         
           # This flexibility brings a lot...
-          cascading_effect = Text("Cascading Effect", font_size=big, font=the_font).move_to([20, 0, 0])
           left = VGroup(microservices[12], microservices[13])
 
           self.remove(text1)
@@ -269,7 +270,6 @@ class TextExample(Scene):
 
           ## The cascading effect #############################
           t1 = BulletedList("Microservices form complex dependency relationship", font=the_font, font_size=25).move_to([0, 0, 0])
-          # t1 = BulletedList("Item 1", "Item 2", "Item 3", height=2, width=2)
           t2 = BulletedList("It takes 25 seconds (median) to create a new instance", font=the_font, font_size=25).move_to([0, 0, 0])
           t3 = BulletedList("These lags stack", font=the_font, font_size=25).move_to([0, 0, 0])
           t4 = BulletedList("Current autoscalers are slow", font=the_font, font_size=25)
@@ -282,10 +282,8 @@ class TextExample(Scene):
             width = 6,
             tips=False,
             faded_line_ratio = 4,
-            # color= "#f5f5f5",
             color="#000000",
             axis_config={"include_numbers": False},
-            # x_axis_config = {"include_ticks": True},
             background_line_style={
                 "stroke_color": BLACK,
                 "stroke_width": 2,
@@ -294,7 +292,6 @@ class TextExample(Scene):
             faded_line_style={
               "stroke_color": BLACK,
             }
-            # y_axis_config={"scaling": LogBase(custom_labels=True)},
           ).rotate(-90 * DEGREES, about_edge=IN).shift(LEFT*3)
 
           client = axes.get_graph(
@@ -303,7 +300,6 @@ class TextExample(Scene):
             stroke_width=0.2,
             opacity=0.5,
           )
-          # client = DashedVMobject(client)
           m1 = axes.get_graph(
             lambda x: 1.6,
             color="#B2BEB5",
@@ -324,7 +320,6 @@ class TextExample(Scene):
             self.add(box)
             self.play(*dimish_list, box.animate.set_height(height, about_edge=UP, stretch=True), run_time=0.5)
             bl = SVGMobject("document.svg").scale(0.2).move_to(axes.coords_to_point((start + end) / 2, thread)).shift(RIGHT*0.25)
-            # self.play(ShowCreation(traffic1))
             if icon:
               self.play(FadeIn(bl))
             
@@ -337,14 +332,6 @@ class TextExample(Scene):
               bar_list3.append(box)
               icon_list2.append(bl)
             return box
-
-          # self.play(ShowCreation(step_graph))
-          # axes.add_coordinate_labels(
-          #     font_size=20,
-          #     font = the_font,
-          #     num_decimal_places=1,
-          # )
-
 
           def add_text(content, thread):
             client_t = Text(content, font=the_font, font_size=16).move_to(axes.coords_to_point(0, thread), aligned_edge=DOWN).shift(UP*0.13)
@@ -659,20 +646,28 @@ class TextExample(Scene):
           latency.move_to(f2).shift(0.5* RIGHT)
           self.play(ShowCreation(greens), ShowCreation(blues), FadeIn(projection))
 
-          self.play(ShowCreation(final), ShowCreation(cross(f1, f2)), ShowCreation(add_lines), FadeIn(addtext), FadeIn(latency))
+
 
           self.wait(2)
           fuck = cross(f1, f2)
           final = VGroup(f1, f2, fuck)
+          self.play(ShowCreation(final), ShowCreation(add_lines), FadeIn(addtext), FadeIn(latency))
+          self.play(*[FadeOut(i) for i in [big_gnn, node_label, edge_label, latency, addtext, projection, final, graph, edge_matrix, node_matrix]])
           
-          self.play(*[FadeOut(i) for i in [big_gnn, node_label, edge_label, latency, addtext, projection, fuck, graph, edge_matrix, node_matrix]])
+          
+          
+          
+          
+          
+          
+          
+          
+          
           ###################### GNN
           self.remove(section)
           section = Text("5. Results", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
           self.add(section)
 
-
-          # magic_number = 0.8
           
           axes = NumberPlane(
               x_range=[0, 13, 1],
@@ -681,10 +676,8 @@ class TextExample(Scene):
               width = 4.9,
               tips=False,
               faded_line_ratio = 4,
-              # color= "#f5f5f5",
               color="#000000",
               axis_config={"include_numbers": False},
-              # x_axis_config = {"include_ticks": True},
               background_line_style={
                   "stroke_color": BLACK,
                   "stroke_width": 2,
@@ -693,7 +686,6 @@ class TextExample(Scene):
               faded_line_style={
                 "stroke_color": BLACK,
               }
-              # y_axis_config={"scaling": LogBase(custom_labels=True)},
             ).rotate(-90 * DEGREES, about_edge=IN).shift(LEFT*4)
 
           client = axes.get_graph(
@@ -702,17 +694,6 @@ class TextExample(Scene):
             stroke_width=0.2,
             opacity=0.5,
           )
-          # client = DashedVMobject(client)
-          # m1 = axes.get_graph(
-          #   lambda x: 1.6,
-          #   color="#B2BEB5",
-          #   stroke_width = 0.2,
-          # )
-          # m2 = axes.get_graph(
-          #   lambda x: 2.4,
-          #   color="#B2BEB5",
-          #   stroke_width = 0.2,
-          # )
 
           ms_list = []
           for i in range(6):
@@ -731,27 +712,15 @@ class TextExample(Scene):
 
             self.add(box)
             self.play(*dimish_list, box.animate.set_height(height, about_edge=UP, stretch=True), run_time=0.1)
-            # bl = SVGMobject("document.svg").scale(0.2).move_to(axes.coords_to_point((start + end) / 2, thread)).shift(RIGHT*0.25)
-            # self.play(ShowCreation(traffic1))
-            # if icon:
-            #   self.play(FadeIn(bl))
             
             if thread == 0.8:
               bar_list1.append(box)
             elif thread == 1.6:
               bar_list2.append(box)
-              # icon_list1.append(bl)
             else:
               bar_list3.append(box)
-              # icon_list2.append(bl)
             return box
 
-          # self.play(ShowCreation(step_graph))
-          # axes.add_coordinate_labels(
-          #     font_size=20,
-          #     font = the_font,
-          #     num_decimal_places=1,
-          # )
 
 
           def add_text(content, thread, a = 0):
@@ -847,28 +816,142 @@ class TextExample(Scene):
           temp = connect(axes.coords_to_point(12.1, 1.6), axes.coords_to_point(12.1, 0.8))
           traffic(0.8, 12.1, 13, temp, "#12cc66")
 
-          # temp = diminish(bar_list2, [])
-
-          # temp += connect(axes.coords_to_point(3.1, 0.8), axes.coords_to_point(3.1, 1.6))
-          # traffic(1.6, 3.1, 5.1, temp)
-          # temp = diminish(bar_list2, icon_list1)
-          # temp += connect(axes.coords_to_point(5.1, 1.6), axes.coords_to_point(5.1, 2.4))
-          # traffic(2.4, 5.1, 9.1, temp)
-          # temp = diminish(bar_list3, icon_list2)
-          # temp += survive(bar_list2, icon_list1)
-          # temp += connect(axes.coords_to_point(9.1, 2.4), axes.coords_to_point(9.1, 1.6))
-          # traffic(1.6, 9.1, 13.1, temp)
-        
-          # temp = diminish(bar_list2, icon_list1)
-          # temp += survive(bar_list1, [])
-          # temp += connect(axes.coords_to_point(13.1, 1.6), axes.coords_to_point(13.1, 0.8))
-          # traffic(0.8, 13.1, 18, temp, "#12cc66", 0.07, False)
 
           self.wait(2)
-          # self.play(*[FadeOut(i) for i in dahsed_list + icon_list1 + icon_list2 + bar_list1 + bar_list2 + bar_list3])
+        
+          
+          def create_axes(k8, label="K8 autoscaler"):
+            axes = NumberPlane(
+              x_range=[0, 176, 10],
+              y_range=[0, 2000, 100],
+              height = 3,
+              width = 10,
+              tips=True,
+              faded_line_ratio = 4,
+              # color= "#f5f5f5",
+              color="#000000",
+              axis_config={"include_numbers": False},
+              # x_axis_config = {"include_ticks": True},
+              background_line_style={
+                  "stroke_color": BLACK,
+                  "stroke_width": 2,
+                  "stroke_opacity": 0.6
+              },
+              faded_line_style={
+                "stroke_color": BLACK,
+              }
+              # y_axis_config={"scaling": LogBase(custom_labels=True)},
+            )
+            label = Text(label, font=the_font, font_size=20)
+            label.move_to(axes.coords_to_point(20, 1800))
+            label200 = Text("2000", font=the_font, font_size=20)
+            label200.move_to(axes.coords_to_point(0, 2000)).shift(LEFT * 0.15).rotate(90 * DEGREES)
+            label300 = Text("300", font=the_font, font_size=20)
+            label300.move_to(axes.coords_to_point(0, 300)).shift(LEFT * 0.15).rotate(90 * DEGREES)
+
+            xlabel = Text("Time (s)", font=the_font, font_size=20)
+            xlabel.move_to(axes.coords_to_point(90, 0)).shift(DOWN * 0.35)
+            ylabel = Text("Query per second", font=the_font, font_size=20)
+            ylabel.move_to(axes.coords_to_point(0, 1000)).shift(LEFT * 0.35).rotate(90 * DEGREES)
 
 
+            label50 = Text("50", font=the_font, font_size=20)
+            label50.move_to(axes.coords_to_point(50, 0)).shift(DOWN * 0.15)
+            label100 = Text("100", font=the_font, font_size=20)
+            label100.move_to(axes.coords_to_point(100, 0)).shift(DOWN * 0.15)
+            label150 = Text("150", font=the_font, font_size=20)
+            label150.move_to(axes.coords_to_point(150, 0)).shift(DOWN * 0.15)
 
+            return VGroup(axes, label, label200, label300, xlabel, ylabel, label50, label100, label150)
+          
+
+          color_list = ["#ed7d31",
+                        "#ababab",
+                        "#9e480e",
+                        "#255e91",
+                        "#ffc000"]
+          def animations(axes, k8):
+            animations = []
+            axes = axes[0]
+            for i in range(5):
+              temp = axes.get_graph(
+                lambda x: k8[i][int(x * len(k8[i]) / 177)],
+                color=color_list[i],
+                stroke_width=2,
+                opacity=1,
+              )
+              animations.append(ShowCreation(temp))
+            return animations
+          
+          k8 = pickle.load(open("k8.txt", 'rb'))
+          php = pickle.load(open("php.txt", 'rb'))
+          axes1 = create_axes(k8)
+          axes2 = create_axes(php, "pHPA")
+
+          ax = VGroup(axes1, axes2)
+          ax.arrange(DOWN, buff=1)
+          ax.scale(0.7)
+
+          legend = VGroup()
+          text_list = ["Cart", "Recommendation", "Product", "Shipping", "Currency"]
+          for i in range(5):
+            temp = Rectangle(0.2, 0.1, stroke_width=0)
+            temp.set_fill(color_list[i], opacity=1)
+            ttext = Text(text_list[i], font_size=20, font=the_font)
+            each = VGroup(temp, ttext)
+            each.arrange(RIGHT, buff=0.4)
+            legend.add(each)
+          legend.arrange(RIGHT, buff=0.6).scale(0.7)
+          legend.move_to(ax, aligned_edge=DOWN)
+          legend_and_ax = VGroup(ax, legend)
+          legend_and_ax.arrange(DOWN, buff=0.3)
+
+          legend_and_ax.next_to(axes).shift(RIGHT)
+          # big = VGroup(axes, legend_and_ax)
+          # big.arrange(RIGHT, buff=1)
+          self.add(legend_and_ax)
+  
+
+          animations1 = animations(axes1, k8)
+          animations2 = animations(axes2, php)
+          self.play(*animations1, *animations2)
+
+          self.wait(2)
+
+
+          for i in self.mobjects:
+            self.remove(i)
+
+          ###############Questions
+          self.remove(section)
+          # section = Text("6. Questions", font=the_font, font_size=30).move_to([-6, 3.5, 0], aligned_edge=LEFT)
+          # self.add(section)
+
+          img = ImageMobject("balloon.jpg").scale(2.4).shift(DOWN * 0.7)
+          self.add(img)
+
+          self.wait(1)
+          self.remove(img)
+
+          jerry_photo = ImageMobject("jerry.jpg").set_width(1.5)
+          jerry = Group(jerry_photo, Text("Hao Shen", font=the_font, font_size=30)).arrange(DOWN)
+          william_photo = ImageMobject("william.jpg").set_width(1.5)
+          william = Group(william_photo, Text("Chengfei Wu", font=the_font, font_size=30)).arrange(DOWN)
+          zhaoqing_photo = ImageMobject("zhaoqing.jpg").set_width(1.5)
+          zhaoqing = Group(zhaoqing_photo, Text("Zhaoqing Wu", font=the_font, font_size=30).set_color_by_gradient(BLUE, PURPLE, GREEN)).arrange(DOWN)
+          yuan_photo = ImageMobject("yuan.jpg").set_width(1.5)
+          yuan = Group(yuan_photo, Text("Yuan Tian", font=the_font, font_size=30)).arrange(DOWN)
+          
+          si_ren_bang = Group(yuan, jerry, william, zhaoqing)
+          si_ren_bang.arrange(RIGHT, buff=0.5)
+
+
+          self.add(si_ren_bang)           
+          self.play(*[i.animate.shift(UP * 0.4) for i in [jerry_photo, william_photo, zhaoqing_photo, yuan_photo]], rate_func=there_and_back, run_time=0.8)
+
+
+          self.wait(5)
+          # ##############
           # while True:
           #   self.wait(10)
           
